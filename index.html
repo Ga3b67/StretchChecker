@@ -5,92 +5,91 @@
     <title>Yoga Pose Checker</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(#d2f1e6, #f7fff9);
+            font-family: "Poppins", Arial, sans-serif;
+            background: linear-gradient(180deg, #fff7a1, #ffffff, #ff6b6b);
             text-align: center;
-            padding: 20px;
-            color: #2b463c;
+            padding: 25px;
+            color: #3c1f1f;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #b40000;
+            text-shadow: 2px 2px 5px #ffcbcb;
         }
 
-        h2 {
-            margin-top: 40px;
+        .instructions, #benefits {
+            background: #ffffffd9;
+            padding: 20px;
+            border-radius: 16px;
+            width: 85%;
+            margin: 20px auto;
+            box-shadow: 0px 4px 10px rgba(255, 94, 94, 0.3);
+            border-left: 6px solid #ff2e2e;
         }
 
         #webcam-container {
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         #label-container div {
             font-size: 1.2rem;
             padding: 6px;
-        }
-
-        .benefit-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: #e8fff5;
-            border-radius: 10px;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.1rem;
-            display: none;
-        }
-
-        .instructions {
-            background: #ffffffaa;
-            padding: 15px;
-            border-radius: 10px;
-            width: 80%;
-            margin: auto;
-            margin-bottom: 25px;
+            background: #ffe6e6;
+            width: 200px;
+            margin: 5px auto;
+            border-radius: 12px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+            color: #b40000;
         }
 
         button {
-            padding: 10px 20px;
-            background: #6ebba1;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #ff2e2e, #ffca2c);
             border: none;
             color: white;
-            font-size: 1rem;
-            border-radius: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-radius: 50px;
             cursor: pointer;
             margin-top: 10px;
+            font-weight: 600;
+            box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.4);
+            transition: 0.25s ease-in-out;
         }
 
         button:hover {
-            background: #5aa58d;
+            transform: scale(1.05);
+            box-shadow: 0px 6px 14px rgba(255, 0, 0, 0.6);
         }
     </style>
 </head>
 
 <body>
     <h1>Yoga Pose Checker 🧘‍♀️</h1>
-    <p>A fun, interactive way to stay fit while learning simple yoga poses.</p>
+    <p style="font-size:1.2rem;">A bright, fun, and interactive way to stay fit!</p>
 
     <div class="instructions">
-        <h2>How to use:</h2>
+        <h2 style="color:#b40000;">How to use:</h2>
         <p>1. Click <strong>Start</strong> to turn on your webcam.</p>
-        <p>2. Stand where your upper body is visible.</p>
+        <p>2. Stand back and make sure your upper body is visible.</p>
         <p>3. Try one of these poses:</p>
-        <ul style="list-style:none; padding:0;">
-            <li>✨ Stretch Pose</li>
-            <li>✨ Squat Pose</li>
-            <li>✨ Arms Up Pose</li>
+        <ul style="list-style:none; padding:0; font-size:1.1rem;">
+            <li>✨ <strong>Stretch Pose</strong></li>
+            <li>✨ <strong>Squat Pose</strong></li>
+            <li>✨ <strong>Arms Up Pose</strong></li>
         </ul>
-        <p>4. The model will recognize your pose and show the benefits!</p>
+        <p>4. The model will show your pose and display the benefits!</p>
     </div>
 
-    <button type="button" onclick="init()">Start</button>
+    <button onclick="init()">Start</button>
 
     <div id="webcam-container"></div>
     <div id="label-container"></div>
 
-    <div id="benefits" class="benefit-box"></div>
+    <div id="benefits" class="instructions" style="display:none;"></div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
@@ -129,6 +128,7 @@
 
         async function predict() {
             const prediction = await model.predict(webcam.canvas);
+
             let highest = { name: "", prob: 0 };
 
             for (let i = 0; i < maxPredictions; i++) {
@@ -144,7 +144,6 @@
             showBenefits(highest.name, highest.prob);
         }
 
-        // Show benefits depending on pose
         function showBenefits(pose, prob) {
             const box = document.getElementById("benefits");
 
@@ -156,16 +155,16 @@
             let text = "";
 
             if (pose === "Stretch Pose") {
-                text = "👍 Great! Stretch Pose helps loosen muscles, reduce stiffness, and improve flexibility.";
+                text = "🌼 Stretch Pose helps loosen muscles, reduce stiffness, and improve flexibility.";
             }
             else if (pose === "Squat Pose") {
-                text = "🔥 Nice! Squat Pose strengthens your legs, glutes, and core while improving balance.";
+                text = "🔥 Squat Pose strengthens your legs, glutes, and core while boosting balance.";
             }
             else if (pose === "Arms Up Pose") {
-                text = "🌟 Awesome! Arms Up Pose improves posture, opens your chest, and boosts circulation.";
+                text = "☀️ Arms Up Pose improves posture, opens the shoulders, and increases circulation.";
             }
 
-            box.innerHTML = text;
+            box.innerHTML = `<strong>${text}</strong>`;
             box.style.display = "block";
         }
     </script>
