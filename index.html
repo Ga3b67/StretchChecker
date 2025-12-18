@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PoseSense – Smart Yoga Pose Checker</title>
+<title>PoseSense | Interactive Pose Feedback</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --red: #d62828;
-    --yellow: #fcbf49;
+    --red: #e63946;
+    --yellow: #ffbe0b;
     --white: #ffffff;
-    --dark: #2b2b2b;
+    --dark: #1d1d1d;
 }
 
 * {
@@ -21,108 +21,140 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #fff3b0, #ffffff, #ffd6d6);
+    background: radial-gradient(circle at top, #fff3b0, #ffffff 45%, #ffd6d6);
     color: var(--dark);
-    overflow-x: hidden;
 }
 
 /* ---------- HERO ---------- */
 header {
+    min-height: 100vh;
     padding: 80px 20px;
     text-align: center;
-    animation: fadeIn 1.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 1.6s ease;
 }
 
 header h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     color: var(--red);
+    letter-spacing: 1px;
 }
 
 header p {
-    font-size: 1.3rem;
-    max-width: 700px;
-    margin: auto;
+    font-size: 1.4rem;
+    max-width: 760px;
+    margin: 20px auto;
 }
 
 /* ---------- BUTTON ---------- */
 button {
-    background: linear-gradient(45deg, var(--red), var(--yellow));
+    background: linear-gradient(135deg, var(--red), var(--yellow));
     border: none;
     color: white;
-    padding: 15px 40px;
+    padding: 18px 48px;
     font-size: 1.2rem;
-    border-radius: 40px;
+    border-radius: 60px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transition: 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    transition: 0.35s ease;
 }
 
 button:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    transform: translateY(-6px) scale(1.07);
 }
 
 /* ---------- SECTIONS ---------- */
 section {
-    padding: 60px 20px;
-    max-width: 1100px;
+    padding: 80px 20px;
+    max-width: 1200px;
     margin: auto;
-    animation: fadeUp 1.2s ease;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.6rem;
+    color: var(--red);
+    margin-bottom: 40px;
+}
+
+/* ---------- CARDS ---------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
 }
 
 .card {
     background: white;
-    border-radius: 20px;
     padding: 35px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    margin-bottom: 40px;
-    border-top: 8px solid var(--yellow);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* ---------- BENEFITS LIST ---------- */
+.benefit {
+    font-size: 1.1rem;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.benefit span {
+    background: linear-gradient(135deg, var(--red), var(--yellow));
+    color: white;
+    padding: 10px 14px;
+    border-radius: 50%;
+    font-weight: 700;
 }
 
 /* ---------- WEBCAM ---------- */
 #webcam-container canvas {
-    border-radius: 20px;
-    border: 6px solid var(--red);
-    box-shadow: 0 12px 30px rgba(214,40,40,0.4);
+    border-radius: 24px;
+    border: 8px solid var(--red);
+    box-shadow: 0 25px 50px rgba(230,57,70,0.4);
 }
 
 /* ---------- LABELS ---------- */
 #label-container div {
     background: #fff1f1;
     color: var(--red);
-    padding: 10px;
-    margin: 8px auto;
-    width: 250px;
-    border-radius: 14px;
+    padding: 12px;
+    margin: 10px auto;
+    width: 260px;
+    border-radius: 16px;
     font-weight: 600;
 }
 
-/* ---------- BENEFITS ---------- */
+/* ---------- POSE BENEFITS ---------- */
 #benefits {
     display: none;
+    margin-top: 30px;
+    padding: 28px;
     background: linear-gradient(135deg, #fff8cc, #ffe6e6);
-    padding: 25px;
-    border-radius: 20px;
+    border-radius: 22px;
     font-size: 1.2rem;
-    margin-top: 20px;
-    border-left: 8px solid var(--red);
+    border-left: 10px solid var(--red);
+    animation: fadeUp 0.6s ease;
 }
 
 /* ---------- ANIMATIONS ---------- */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0 }
+    to { opacity: 1 }
 }
 
 @keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px) }
+    to { opacity: 1; transform: translateY(0) }
 }
 </style>
 </head>
@@ -130,52 +162,49 @@ section {
 <body>
 
 <header>
-    <h1>PoseSense 🧘‍♀️</h1>
+    <h1>PoseSense</h1>
     <p>
-        A smart, interactive pose checker that uses AI to help people stay active,
-        improve posture, and exercise with confidence.
+        A web-based pose feedback system that helps users practice movement,
+        improve posture, and stay active through real-time interaction.
     </p>
     <br>
-    <button onclick="init()">Start Pose Detection</button>
+    <button onclick="init()">Launch Live Demo</button>
 </header>
 
 <section>
+    <h2 class="section-title">The Challenge</h2>
     <div class="card">
-        <h2>Why This Matters</h2>
         <p>
-            Many people want to stretch or exercise but are unsure if they are doing
-            poses correctly. Incorrect posture can limit results and increase the risk
-            of discomfort or injury.
+            Many people want to move more throughout the day but lack feedback on
+            whether they are performing poses correctly. Without guidance, posture
+            mistakes can reduce effectiveness and lead to discomfort.
         </p>
         <p>
-            PoseSense solves this by using artificial intelligence to recognize body
-            positions in real time and provide instant feedback. This removes confusion
-            and helps users feel confident while staying active.
+            PoseSense provides instant pose recognition and feedback using only a
+            webcam, making movement practice simple, accessible, and engaging.
         </p>
     </div>
+</section>
 
-    <div class="card">
-        <h2>Who Benefits?</h2>
-        <ul>
-            <li>✔ Beginners learning basic fitness and yoga poses</li>
-            <li>✔ Students who sit for long periods</li>
-            <li>✔ People exercising at home</li>
-            <li>✔ Anyone who wants a fun, interactive way to move</li>
-        </ul>
+<section>
+    <h2 class="section-title">Who Benefits</h2>
+    <div class="grid">
+        <div class="card benefit"><span>✓</span> Beginners learning proper movement</div>
+        <div class="card benefit"><span>✓</span> Students and desk-based workers</div>
+        <div class="card benefit"><span>✓</span> Home fitness users</div>
+        <div class="card benefit"><span>✓</span> Anyone seeking interactive wellness</div>
     </div>
 </section>
 
 <section style="text-align:center;">
-    <h2>Live Pose Detection</h2>
-    <p>Try one of the following poses:</p>
-    <p><strong>Stretch Pose • Squat Pose • Arms Up Pose</strong></p>
+    <h2 class="section-title">Live Pose Recognition</h2>
+    <p>Try: Stretch Pose • Squat Pose • Arms Up Pose</p>
 
     <div id="webcam-container"></div>
     <div id="label-container"></div>
     <div id="benefits"></div>
 </section>
 
-<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
@@ -227,15 +256,13 @@ function showBenefits(pose, prob) {
         return;
     }
 
-    let text = "";
-    if (pose === "Stretch Pose")
-        text = "Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.";
-    else if (pose === "Squat Pose")
-        text = "Squat Pose builds leg strength, improves balance, and activates core muscles.";
-    else if (pose === "Arms Up Pose")
-        text = "Arms Up Pose improves posture, opens the chest, and boosts circulation.";
+    const benefits = {
+        "Stretch Pose": "Improves flexibility, reduces stiffness, and prepares muscles for movement.",
+        "Squat Pose": "Builds lower-body strength, balance, and stability.",
+        "Arms Up Pose": "Encourages better posture and opens the shoulders and chest."
+    };
 
-    box.innerHTML = `<strong>${text}</strong>`;
+    box.innerHTML = benefits[pose] || "";
     box.style.display = "block";
 }
 </script>
