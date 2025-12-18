@@ -14,40 +14,38 @@
 
 <style>
 :root {
-    --dark-red: #e63946;
-    --red: #f06670;
-    --orange: #ff9f43;
-    --yellow: #ffd60a;
+    --red: #e63946;
+    --orange: #f3722c;
+    --yellow: #ffbe0b;
     --white: #ffffff;
     --dark: #1d1d1d;
 }
 
-/* ------------------ GENERAL ------------------ */
 * { box-sizing: border-box; }
-body { 
-    margin: 0; 
+
+body {
+    margin: 0;
     font-family: 'Poppins', sans-serif;
-    color: var(--dark);
     overflow-x: hidden;
-    background: #fff3b0;
     position: relative;
-    min-height: 100vh;
+    background: var(--white);
 }
 
-/* ------------------ BACKGROUND CIRCLES ------------------ */
+/* Floating circles background */
 .background-circle {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.15;
-    animation: float 20s linear infinite;
+    opacity: 0.25;
+    animation: floatUp linear infinite;
+    z-index: -1;
 }
-@keyframes float {
+@keyframes floatUp {
     0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-30px) translateX(20px); }
-    100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-50px) translateX(20px); }
+    100% { transform: translateY(-100px) translateX(0); }
 }
 
-/* ------------------ HERO ------------------ */
+/* Hero Section */
 header {
     min-height: 100vh;
     padding: 80px 20px;
@@ -55,15 +53,13 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 header h1 {
     font-size: 4rem;
-    color: var(--dark-red);
-    letter-spacing: 1px;
-    transition: 0.3s ease;
+    color: var(--red);
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 header h1:hover {
     transform: scale(1.05);
@@ -74,15 +70,16 @@ header p {
     font-size: 1.4rem;
     max-width: 760px;
     margin: 20px auto;
-    transition: 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 header p:hover {
-    color: var(--red);
-    transform: translateY(-3px);
+    transform: scale(1.02);
+    color: var(--orange);
 }
 
+/* Buttons */
 button {
-    background: linear-gradient(135deg, var(--dark-red), var(--yellow));
+    background: linear-gradient(135deg, var(--red), var(--yellow));
     border: none;
     color: white;
     padding: 18px 48px;
@@ -91,96 +88,88 @@ button {
     cursor: pointer;
     font-weight: 600;
     box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-    transition: 0.35s ease;
+    transition: 0.35s ease, transform 0.3s ease;
 }
 button:hover {
     transform: translateY(-6px) scale(1.07);
 }
 
-/* ------------------ SECTIONS ------------------ */
+/* Sections */
 section {
     padding: 80px 20px;
     max-width: 1200px;
     margin: auto;
-    position: relative;
-    z-index: 2;
 }
 
 .section-title {
     text-align: center;
     font-size: 2.6rem;
-    color: var(--dark-red);
+    color: var(--red);
     margin-bottom: 40px;
-    transition: 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 .section-title:hover {
+    transform: scale(1.05);
     color: var(--orange);
 }
 
-/* ------------------ CARDS ------------------ */
+/* Cards */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
 }
-
 .card {
     background: white;
     padding: 35px;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     position: relative;
-    overflow: hidden;
-    transition: 0.4s ease;
+    transition: transform 0.3s ease;
 }
 .card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    transform: translateY(-10px);
 }
 
-/* ------------------ BENEFIT ITEMS ------------------ */
+/* Benefit items */
 .benefit {
     font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: 14px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.benefit:hover {
+    transform: scale(1.03);
+    color: var(--orange);
 }
 .benefit span {
-    background: linear-gradient(135deg, var(--dark-red), var(--yellow));
+    background: linear-gradient(135deg, var(--red), var(--yellow));
     color: white;
     padding: 12px;
     border-radius: 50%;
     font-weight: 700;
 }
 
-/* ------------------ WEBCAM ------------------ */
+/* Webcam */
 #webcam-container canvas {
     border-radius: 24px;
-    border: 8px solid var(--dark-red);
+    border: 8px solid var(--red);
     box-shadow: 0 25px 50px rgba(230,57,70,0.4);
-    transition: 0.4s ease;
-}
-#webcam-container canvas:hover {
-    transform: scale(1.03);
 }
 
-/* ------------------ LABELS ------------------ */
+/* Labels */
 #label-container div {
     background: #fff1f1;
-    color: var(--dark-red);
+    color: var(--red);
     padding: 12px;
     margin: 10px auto;
     width: 260px;
     border-radius: 16px;
     font-weight: 600;
-    transition: 0.3s ease;
-}
-#label-container div:hover {
-    transform: translateY(-3px);
-    color: var(--orange);
 }
 
-/* ------------------ BENEFITS BOX ------------------ */
+/* Benefits Box */
 #benefits {
     display: none;
     margin-top: 30px;
@@ -188,39 +177,61 @@ section {
     background: linear-gradient(135deg, #fff8cc, #ffe6e6);
     border-radius: 22px;
     font-size: 1.2rem;
-    border-left: 10px solid var(--dark-red);
-    transition: 0.4s ease;
-    animation: fadeUp 0.6s ease;
+    border-left: 10px solid var(--red);
+    transition: transform 0.3s ease;
+}
+#benefits:hover {
+    transform: scale(1.02);
 }
 
-/* ------------------ ANIMATIONS ------------------ */
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Pose Explanation Cards */
+.pose-card h3 {
+    margin-top: 0;
+    color: var(--red);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.pose-card:hover h3 {
+    color: var(--orange);
+    transform: scale(1.05);
+}
+.pose-card p {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.pose-card:hover p {
+    transform: scale(1.02);
+}
+
+/* Floating Animation */
+@keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-50px) translateX(20px); }
+    100% { transform: translateY(-100px) translateX(0); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND CIRCLES -->
-<div class="background-circle" style="width:200px; height:200px; top:10%; left:10%; background: var(--dark-red);"></div>
-<div class="background-circle" style="width:250px; height:250px; top:30%; left:70%; background: var(--red); animation-delay: 3s;"></div>
-<div class="background-circle" style="width:180px; height:180px; top:50%; left:40%; background: var(--orange); animation-delay: 6s;"></div>
-<div class="background-circle" style="width:220px; height:220px; top:70%; left:20%; background: var(--yellow); animation-delay: 9s;"></div>
+<!-- Background Circles -->
+<div id="background-container"></div>
 
 <header>
     <h1>PoseSense</h1>
-    <p>A browser-based pose checker that helps people stay active, improve posture, and move with confidence.</p>
-    <br>
+    <p>A fun, interactive way to improve posture and move safely!</p>
     <button onclick="init()">Try it out!</button>
 </header>
 
 <section>
     <h2 class="section-title">The Challenge</h2>
     <div class="card">
-        <p>Many people want to exercise or stretch but are unsure if they are doing poses correctly. Without feedback, posture mistakes can reduce effectiveness and lead to discomfort.</p>
-        <p>PoseSense provides real-time pose recognition using a webcam, helping users understand their movement and learn proper form in an interactive way.</p>
+        <p>
+            Many people want to exercise but aren’t sure if they are doing poses correctly.
+            Poor posture can reduce benefits and even cause discomfort.
+        </p>
+        <p>
+            PoseSense provides live pose recognition through your browser, guiding you
+            to proper form in an interactive and engaging way.
+        </p>
     </div>
 </section>
 
@@ -237,12 +248,30 @@ section {
 <section style="text-align:center;">
     <h2 class="section-title">Live Pose Checker</h2>
     <p>Try: Stretch Pose • Squat Pose • Arms Up Pose</p>
-
     <div id="webcam-container"></div>
     <div id="label-container"></div>
     <div id="benefits"></div>
 </section>
 
+<section>
+    <h2 class="section-title">Pose Details</h2>
+    <div class="grid">
+        <div class="card pose-card">
+            <h3>Stretch Pose</h3>
+            <p>Improves flexibility, reduces stiffness, and prepares muscles for movement.</p>
+        </div>
+        <div class="card pose-card">
+            <h3>Squat Pose</h3>
+            <p>Builds lower-body strength, activates the core, and improves balance.</p>
+        </div>
+        <div class="card pose-card">
+            <h3>Arms Up Pose</h3>
+            <p>Enhances posture, opens the chest, and boosts circulation.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
@@ -252,53 +281,79 @@ let model, webcam, labelContainer, maxPredictions;
 let started = false;
 
 async function init() {
-    if(started) return;
+    if (started) return;
     started = true;
 
     model = await tmImage.load(URL + "model.json", URL + "metadata.json");
     maxPredictions = model.getTotalClasses();
 
-    webcam = new tmImage.Webcam(320,320,true);
+    webcam = new tmImage.Webcam(320, 320, true);
     await webcam.setup();
     await webcam.play();
     window.requestAnimationFrame(loop);
 
     document.getElementById("webcam-container").appendChild(webcam.canvas);
     labelContainer = document.getElementById("label-container");
-    for(let i=0;i<maxPredictions;i++){
+
+    for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
     }
 }
 
-async function loop(){
+async function loop() {
     webcam.update();
     await predict();
     window.requestAnimationFrame(loop);
 }
 
-async function predict(){
+async function predict() {
     const prediction = await model.predict(webcam.canvas);
-    let top = {name:"", prob:0};
-    for(let i=0;i<maxPredictions;i++){
+    let top = { name: "", prob: 0 };
+
+    for (let i = 0; i < maxPredictions; i++) {
         const p = prediction[i];
-        labelContainer.childNodes[i].innerHTML = `${p.className}: ${p.probability.toFixed(2)}`;
-        if(p.probability>top.prob) top=p;
+        labelContainer.childNodes[i].innerHTML =
+            `${p.className}: ${p.probability.toFixed(2)}`;
+        if (p.probability > top.prob) top = p;
     }
+
     showBenefits(top.name, top.probability);
 }
 
-function showBenefits(pose, prob){
+function showBenefits(pose, prob) {
     const box = document.getElementById("benefits");
-    if(prob<0.8){box.style.display="none"; return;}
+
+    if (prob < 0.80) {
+        box.style.display = "none";
+        return;
+    }
+
     const messages = {
-        "Stretch Pose":"Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.",
-        "Squat Pose":"Squat Pose strengthens the legs, activates the core, and improves balance.",
-        "Arms Up Pose":"Arms Up Pose improves posture, opens the chest, and boosts circulation."
+        "Stretch Pose": "Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.",
+        "Squat Pose": "Squat Pose strengthens the legs, activates the core, and improves balance.",
+        "Arms Up Pose": "Arms Up Pose improves posture, opens the chest, and boosts circulation."
     };
-    box.innerHTML = messages[pose]||"";
-    box.style.display="block";
+
+    box.innerHTML = messages[pose] || "";
+    box.style.display = "block";
+}
+
+/* Background circles */
+const background = document.getElementById('background-container');
+const colors = ['#e63946','#f3722c','#ffbe0b'];
+for (let i = 0; i < 30; i++) {
+    let circle = document.createElement('div');
+    circle.classList.add('background-circle');
+    const size = Math.random() * 100 + 50;
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
+    circle.style.background = colors[i % colors.length];
+    circle.style.left = `${Math.random() * 100}%`;
+    circle.style.top = `${Math.random() * 100}%`;
+    circle.style.animationDuration = `${10 + Math.random() * 20}s`;
+    circle.style.animationDelay = `${Math.random() * 5}s`;
+    background.appendChild(circle);
 }
 </script>
-
 </body>
 </html>
