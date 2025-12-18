@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>PoseSense | Interactive Pose Feedback</title>
 
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="favicon.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -33,7 +36,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    animation: fadeIn 1.6s ease;
+    animation: fadeIn 1.5s ease;
 }
 
 header h1 {
@@ -92,6 +95,8 @@ section {
     padding: 35px;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
     transition: 0.4s ease;
 }
 
@@ -99,10 +104,10 @@ section {
     transform: translateY(-10px);
 }
 
-/* ---------- BENEFITS LIST ---------- */
+/* ---------- BENEFIT LIST ---------- */
 .benefit {
     font-size: 1.1rem;
-    padding: 12px;
+    padding: 12px 0;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -111,7 +116,7 @@ section {
 .benefit span {
     background: linear-gradient(135deg, var(--red), var(--yellow));
     color: white;
-    padding: 10px 14px;
+    padding: 10px;
     border-radius: 50%;
     font-weight: 700;
 }
@@ -134,7 +139,7 @@ section {
     font-weight: 600;
 }
 
-/* ---------- POSE BENEFITS ---------- */
+/* ---------- BENEFITS BOX ---------- */
 #benefits {
     display: none;
     margin-top: 30px;
@@ -164,24 +169,24 @@ section {
 <header>
     <h1>PoseSense</h1>
     <p>
-        A web-based pose feedback system that helps users practice movement,
-        improve posture, and stay active through real-time interaction.
+        An interactive pose-checking experience that helps people stay active,
+        improve posture, and move with confidence.
     </p>
     <br>
     <button onclick="init()">Launch Live Demo</button>
 </header>
 
 <section>
-    <h2 class="section-title">The Challenge</h2>
+    <h2 class="section-title">The Problem</h2>
     <div class="card">
         <p>
-            Many people want to move more throughout the day but lack feedback on
-            whether they are performing poses correctly. Without guidance, posture
-            mistakes can reduce effectiveness and lead to discomfort.
+            Many people want to stretch and exercise but are unsure whether they are
+            performing poses correctly. Without feedback, posture mistakes can reduce
+            effectiveness and discourage consistency.
         </p>
         <p>
-            PoseSense provides instant pose recognition and feedback using only a
-            webcam, making movement practice simple, accessible, and engaging.
+            This project provides real-time pose recognition through a browser-based
+            experience, helping users understand their movements and learn safely.
         </p>
     </div>
 </section>
@@ -189,10 +194,10 @@ section {
 <section>
     <h2 class="section-title">Who Benefits</h2>
     <div class="grid">
-        <div class="card benefit"><span>✓</span> Beginners learning proper movement</div>
+        <div class="card benefit"><span>✓</span> Beginners learning proper posture</div>
         <div class="card benefit"><span>✓</span> Students and desk-based workers</div>
-        <div class="card benefit"><span>✓</span> Home fitness users</div>
-        <div class="card benefit"><span>✓</span> Anyone seeking interactive wellness</div>
+        <div class="card benefit"><span>✓</span> People exercising at home</div>
+        <div class="card benefit"><span>✓</span> Anyone seeking a fun, interactive workout</div>
     </div>
 </section>
 
@@ -205,6 +210,7 @@ section {
     <div id="benefits"></div>
 </section>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
@@ -251,15 +257,17 @@ async function predict() {
 
 function showBenefits(pose, prob) {
     const box = document.getElementById("benefits");
-    if (prob < 0.75) {
+
+    // ✅ ONLY SHOW AT 80% OR HIGHER
+    if (prob < 0.80) {
         box.style.display = "none";
         return;
     }
 
     const benefits = {
-        "Stretch Pose": "Improves flexibility, reduces stiffness, and prepares muscles for movement.",
-        "Squat Pose": "Builds lower-body strength, balance, and stability.",
-        "Arms Up Pose": "Encourages better posture and opens the shoulders and chest."
+        "Stretch Pose": "Stretch Pose improves flexibility, reduces muscle tension, and prepares the body for movement.",
+        "Squat Pose": "Squat Pose strengthens the legs and core, improves balance, and supports healthy mobility.",
+        "Arms Up Pose": "Arms Up Pose improves posture, opens the chest, and increases circulation."
     };
 
     box.innerHTML = benefits[pose] || "";
