@@ -251,10 +251,23 @@ async function predict() {
 
 function showBenefits(pose, prob) {
     const box = document.getElementById("benefits");
-    if (prob < 0.75) {
+
+    // Show benefits ONLY when confidence is 90% or higher
+    if (prob < 0.90) {
         box.style.display = "none";
         return;
     }
+
+    const benefits = {
+        "Stretch Pose": "Improves flexibility, reduces stiffness, and prepares muscles for movement.",
+        "Squat Pose": "Builds lower-body strength, balance, and stability.",
+        "Arms Up Pose": "Encourages better posture and opens the shoulders and chest."
+    };
+
+    box.innerHTML = benefits[pose] || "";
+    box.style.display = "block";
+}
+
 
     const benefits = {
         "Stretch Pose": "Improves flexibility, reduces stiffness, and prepares muscles for movement.",
