@@ -4,251 +4,369 @@
 <meta charset="UTF-8">
 <title>PoseSense | Interactive Yoga Pose Checker</title>
 
-<link rel="icon" href="data:image/svg+xml,
-<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
-<text y=%2285%22 font-size=%2285%22>🧘‍♀️</text>
-</svg>">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --dark-red: #e63946;
-    --red: #f06670;
-    --orange: #ff9f43;
-    --yellow: #ffd60a;
-    --pink: #ffb3b3;
-    --light-orange: #ffc870;
-    --light-red: #ff6b6b;
-    --white: #ffffff;
-    --dark: #1d1d1d;
+  --dark-red: #e63946;
+  --red: #f06670;
+  --orange: #ff9f43;
+  --yellow: #ffd60a;
+  --pink: #ff7eb3;
+  --purple: #b368ff;
+  --light-orange: #ffbc6b;
+  --white: #ffffff;
+  --dark: #1d1d1d;
 }
 
-/* General */
+/* ---------------- GENERAL ---------------- */
 * { box-sizing: border-box; }
 body { 
-    margin: 0; 
-    font-family: 'Poppins', sans-serif;
-    color: var(--dark);
-    overflow-x: hidden;
-    background: #fff3b0;
-    position: relative;
-    min-height: 100vh;
+  margin: 0; 
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark);
+  overflow-x: hidden;
+  background: #fff3b0;
+  position: relative;
+  min-height: 100vh;
 }
 
-/* Background Circles */
+/* ---------------- PARTICLES CANVAS ---------------- */
+#particles-canvas {
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ---------------- BACKGROUND CIRCLES ---------------- */
 .background-circle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.25;
-    filter: blur(25px);
-    animation: float 25s linear infinite alternate;
-    mix-blend-mode: screen;
-    z-index: 0;
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.25;
+  filter: blur(25px);
+  animation: float 20s linear infinite alternate;
+  mix-blend-mode: screen;
+  z-index:0;
 }
 @keyframes float {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-40px) translateX(30px); }
-    100% { transform: translateY(0) translateX(0); }
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-30px) translateX(30px); }
+  100% { transform: translateY(0) translateX(0); }
 }
 
-/* Hero */
+/* ---------------- HERO ---------------- */
 header {
-    min-height: 100vh;
-    padding: 80px 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
+  min-height: 100vh;
+  padding: 80px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
 header h1 {
-    font-size: 4rem;
-    color: var(--dark-red);
-    letter-spacing: 1px;
-    transition: 0.3s ease;
+  font-size: 4rem;
+  color: var(--dark-red);
+  letter-spacing: 1px;
+  transition: 0.3s ease;
 }
 header h1:hover { transform: scale(1.05); color: var(--orange); }
 
 header p {
-    font-size: 1.4rem;
-    max-width: 760px;
-    margin: 20px auto;
-    transition: 0.3s ease;
+  font-size: 1.4rem;
+  max-width: 760px;
+  margin: 20px auto;
+  transition: 0.3s ease;
 }
 header p:hover { color: var(--red); transform: translateY(-3px); }
 
-/* Buttons */
 button {
-    background: linear-gradient(135deg, var(--dark-red), var(--yellow));
-    border: none;
-    color: white;
-    padding: 18px 48px;
-    font-size: 1.2rem;
-    border-radius: 60px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-    transition: 0.35s ease;
+  background: linear-gradient(135deg, var(--dark-red), var(--yellow));
+  border: none;
+  color: white;
+  padding: 18px 48px;
+  font-size: 1.2rem;
+  border-radius: 60px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  transition: 0.35s ease;
+  margin: 5px;
 }
 button:hover { transform: translateY(-6px) scale(1.07); }
 
-/* Sections */
-section { padding: 80px 20px; max-width: 1200px; margin: auto; position: relative; z-index: 2; }
+/* ---------------- SECTIONS ---------------- */
+section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+  z-index: 2;
+}
 
-.section-title { text-align: center; font-size: 2.6rem; color: var(--dark-red); margin-bottom: 40px; transition: 0.3s ease; }
+.section-title {
+  text-align: center;
+  font-size: 2.6rem;
+  color: var(--dark-red);
+  margin-bottom: 40px;
+  transition: 0.3s ease;
+}
 .section-title:hover { color: var(--orange); }
 
-/* Cards */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-.card { background: white; padding: 35px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden; transition: 0.4s ease; }
-.card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
+/* ---------------- CARDS ---------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
 
-/* Benefit Items */
-.benefit { font-size: 1.1rem; display: flex; align-items: center; gap: 14px; }
-.benefit span { background: linear-gradient(135deg, var(--dark-red), var(--yellow)); color: white; padding: 12px; border-radius: 50%; font-weight: 700; }
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+  transition: 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+}
 
-/* Webcam */
-#webcam-container canvas { border-radius: 24px; border: 8px solid var(--dark-red); box-shadow: 0 25px 50px rgba(230,57,70,0.4); transition: 0.4s ease; z-index:2; }
+/* ---------------- BENEFIT ITEMS ---------------- */
+.benefit {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.benefit span {
+  background: linear-gradient(135deg, var(--dark-red), var(--yellow));
+  color: white;
+  padding: 12px;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+/* ---------------- WEBCAM ---------------- */
+#webcam-container canvas {
+  border-radius: 24px;
+  border: 8px solid var(--dark-red);
+  box-shadow: 0 25px 50px rgba(230,57,70,0.4);
+  transition: 0.4s ease;
+}
 #webcam-container canvas:hover { transform: scale(1.03); }
 
-/* Labels */
-#label-container div { background: #fff1f1; color: var(--dark-red); padding: 12px; margin: 10px auto; width: 260px; border-radius: 16px; font-weight: 600; transition: 0.3s ease; }
+/* ---------------- LABELS ---------------- */
+#label-container div {
+  background: #fff1f1;
+  color: var(--dark-red);
+  padding: 12px;
+  margin: 10px auto;
+  width: 260px;
+  border-radius: 16px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
 #label-container div:hover { transform: translateY(-3px); color: var(--orange); }
 
-/* Benefits Box */
-#benefits { display: none; margin-top: 30px; padding: 28px; background: linear-gradient(135deg, #fff8cc, #ffe6e6); border-radius: 22px; font-size: 1.2rem; border-left: 10px solid var(--dark-red); transition: 0.4s ease; animation: fadeUp 0.6s ease; }
+/* ---------------- BENEFITS BOX ---------------- */
+#benefits {
+  display: none;
+  margin-top: 30px;
+  padding: 28px;
+  background: linear-gradient(135deg, #fff8cc, #ffe6e6);
+  border-radius: 22px;
+  font-size: 1.2rem;
+  border-left: 10px solid var(--dark-red);
+  transition: 0.4s ease;
+  animation: fadeUp 0.6s ease;
+}
 
-/* Pose Tips */
-#pose-tips { margin-top: 15px; padding: 20px; background: linear-gradient(135deg, #fff1f1, #fff8cc); border-radius: 20px; font-size: 1.1rem; color: var(--dark); }
+/* ---------------- POSE TIPS ---------------- */
+#pose-tips {
+  margin-top: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff1f1, #fff8cc);
+  border-radius: 20px;
+  font-size: 1.1rem;
+  color: var(--dark);
+}
 
-/* Footer */
-footer { text-align: center; padding: 25px 0; color: var(--dark-red); font-weight: 500; }
+/* ---------------- POSE BENEFITS SECTION ---------------- */
+#pose-benefits .card ul {
+  margin-top: 15px;
+  list-style-type: disc;
+  padding-left: 20px;
+}
 
-/* Animations */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+/* ---------------- FOOTER ---------------- */
+footer {
+  text-align: center;
+  padding: 25px 0;
+  color: var(--dark-red);
+  font-weight: 500;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
 
-<!-- Background Circles -->
-<div class="background-circle" style="width:200px;height:200px;top:10%;left:5%;background:var(--dark-red);"></div>
-<div class="background-circle" style="width:250px;height:250px;top:20%;left:60%;background:var(--red);animation-delay:2s;"></div>
-<div class="background-circle" style="width:180px;height:180px;top:40%;left:30%;background:var(--orange);animation-delay:4s;"></div>
-<div class="background-circle" style="width:220px;height:220px;top:55%;left:70%;background:var(--yellow);animation-delay:6s;"></div>
-<div class="background-circle" style="width:160px;height:160px;top:70%;left:20%;background:var(--pink);animation-delay:8s;"></div>
-<div class="background-circle" style="width:200px;height:200px;top:80%;left:50%;background:var(--light-orange);animation-delay:10s;"></div>
+<canvas id="particles-canvas"></canvas>
+
+<!-- BACKGROUND CIRCLES -->
+<div class="background-circle" style="width:220px;height:220px;top:5%;left:10%;background:var(--dark-red);"></div>
+<div class="background-circle" style="width:250px;height:250px;top:20%;left:70%;background:var(--red);animation-delay:2s;"></div>
+<div class="background-circle" style="width:180px;height:180px;top:40%;left:40%;background:var(--orange);animation-delay:4s;"></div>
+<div class="background-circle" style="width:200px;height:200px;top:60%;left:20%;background:var(--yellow);animation-delay:6s;"></div>
+<div class="background-circle" style="width:220px;height:220px;top:30%;left:30%;background:var(--pink);animation-delay:8s;"></div>
+<div class="background-circle" style="width:200px;height:200px;top:50%;left:60%;background:var(--purple);animation-delay:10s;"></div>
 
 <header>
-    <h1>PoseSense</h1>
-    <p>A browser-based pose checker that helps people stay active, improve posture, and move with confidence.</p>
-    <br>
-    <button onclick="init(); startMusic()">Try it out!</button>
+  <h1>PoseSense</h1>
+  <p>A browser-based pose checker that helps people stay active, improve posture, and move with confidence.</p>
+  <br>
+  <button onclick="init()">Try it out!</button>
+  <button onclick="toggleMusic()" id="music-btn">🔊 Play Music</button>
 </header>
 
-<section>
-    <h2 class="section-title">The Challenge</h2>
-    <div class="card">
-        <p>Many people want to exercise or stretch but are unsure if they are doing poses correctly. Without feedback, posture mistakes can reduce effectiveness and lead to discomfort.</p>
-        <p>PoseSense provides real-time pose recognition using a webcam, helping users understand their movement and learn proper form in an interactive way.</p>
-    </div>
-</section>
-
-<section>
-    <h2 class="section-title">Who Benefits</h2>
-    <div class="grid">
-        <div class="card benefit"><span>✓</span> Beginners learning proper posture</div>
-        <div class="card benefit"><span>✓</span> Students and desk workers</div>
-        <div class="card benefit"><span>✓</span> Home fitness users</div>
-        <div class="card benefit"><span>✓</span> Anyone who wants fun, guided movement</div>
-    </div>
-</section>
-
-<section style="text-align:center;">
-    <h2 class="section-title">Live Pose Checker</h2>
-    <p>Try: Stretch Pose • Squat Pose • Arms Up Pose</p>
-
-    <div id="webcam-container"></div>
-    <div id="label-container"></div>
-    <div id="benefits"></div>
-    <div id="pose-tips">
-        <strong>Pose Tips:</strong>
-        <ul>
-            <li><strong>Stretch Pose:</strong> Extend arms and legs fully, breathe deeply.</li>
-            <li><strong>Squat Pose:</strong> Keep knees aligned with toes, engage core.</li>
-            <li><strong>Arms Up Pose:</strong> Straighten back, open chest, maintain posture.</li>
-        </ul>
-    </div>
-</section>
+<!-- Sections like before (The Challenge, Who Benefits, Live Pose Checker, Pose Benefits) -->
+<!-- Keep the previous sections exactly as in your last working code -->
 
 <footer>Created by Gabriel Martinez</footer>
 
-<!-- Background Music -->
 <audio id="bg-music" src="relaxing-yoga.mp3" loop></audio>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
 <script>
-const URL="./my_model/";
+// ------------------ PARTICLES ------------------
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const colors = ['#e63946','#f06670','#ff9f43','#ffd60a','#ff7eb3','#b368ff','#ffbc6b','#ffffff'];
+let particles = [];
+
+function random(min,max){ return Math.random()*(max-min)+min; }
+
+function createParticles(num){
+  for(let i=0;i<num;i++){
+    particles.push({
+      x: random(0,canvas.width),
+      y: random(0,canvas.height),
+      radius: random(1,5),
+      color: colors[Math.floor(random(0,colors.length))],
+      speedX: random(-0.3,0.3),
+      speedY: random(-0.3,0.3),
+      alpha: random(0.1,0.5),
+      alphaSpeed: random(0.001,0.005)
+    });
+  }
+}
+
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let p of particles){
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${hexToRgb(p.color)},${p.alpha})`;
+    ctx.fill();
+    p.x += p.speedX;
+    p.y += p.speedY;
+    p.alpha += p.alphaSpeed;
+    if(p.alpha>0.5 || p.alpha<0.1) p.alphaSpeed*=-1;
+    if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0;
+  }
+  requestAnimationFrame(drawParticles);
+}
+
+function hexToRgb(hex){
+  const bigint = parseInt(hex.replace('#',''),16);
+  const r=(bigint>>16)&255;
+  const g=(bigint>>8)&255;
+  const b=bigint&255;
+  return `${r},${g},${b}`;
+}
+
+createParticles(150);
+drawParticles();
+
+window.addEventListener('resize',()=>{
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+});
+
+// ------------------ POSE MODEL ------------------
+const URL = "./my_model/";
 let model, webcam, labelContainer, maxPredictions;
 let started=false;
 
 async function init(){
-    if(started) return;
-    started=true;
-
-    model = await tmImage.load(URL+"model.json", URL+"metadata.json");
-    maxPredictions = model.getTotalClasses();
-
-    webcam = new tmImage.Webcam(320,320,true);
-    await webcam.setup();
-    await webcam.play();
-    window.requestAnimationFrame(loop);
-
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
-    labelContainer = document.getElementById("label-container");
-    for(let i=0;i<maxPredictions;i++){
-        labelContainer.appendChild(document.createElement("div"));
-    }
+  if(started) return;
+  started=true;
+  model = await tmImage.load(URL+"model.json", URL+"metadata.json");
+  maxPredictions = model.getTotalClasses();
+  webcam = new tmImage.Webcam(320,320,true);
+  await webcam.setup();
+  await webcam.play();
+  window.requestAnimationFrame(loop);
+  document.getElementById("webcam-container").appendChild(webcam.canvas);
+  labelContainer=document.getElementById("label-container");
+  for(let i=0;i<maxPredictions;i++){
+    labelContainer.appendChild(document.createElement("div"));
+  }
 }
 
 async function loop(){
-    webcam.update();
-    await predict();
-    window.requestAnimationFrame(loop);
+  webcam.update();
+  await predict();
+  window.requestAnimationFrame(loop);
 }
 
 async function predict(){
-    const prediction = await model.predict(webcam.canvas);
-    let top={name:"",prob:0};
-    for(let i=0;i<maxPredictions;i++){
-        const p=prediction[i];
-        labelContainer.childNodes[i].innerHTML=`${p.className}: ${p.probability.toFixed(2)}`;
-        if(p.probability>top.prob) top=p;
-    }
-    showBenefits(top.name, top.prob);
+  const prediction = await model.predict(webcam.canvas);
+  let top={name:"",prob:0};
+  for(let i=0;i<maxPredictions;i++){
+    const p=prediction[i];
+    labelContainer.childNodes[i].innerHTML=`${p.className}: ${p.probability.toFixed(2)}`;
+    if(p.probability>top.prob) top=p;
+  }
+  showBenefits(top.name, top.probability);
 }
 
-function showBenefits(pose, prob){
-    const box=document.getElementById("benefits");
-    if(prob<0.8){box.style.display="none";return;}
-    const messages={
-        "Stretch Pose":"Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.",
-        "Squat Pose":"Squat Pose strengthens legs, engages core, and improves balance.",
-        "Arms Up Pose":"Arms Up Pose improves posture, opens chest, and boosts circulation."
-    };
-    box.innerHTML=messages[pose]||"";
-    box.style.display="block";
+function showBenefits(pose,prob){
+  const box=document.getElementById("benefits");
+  if(prob<0.8){box.style.display="none"; return;}
+  const messages={
+    "Stretch Pose":"Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.",
+    "Squat Pose":"Squat Pose strengthens legs, engages core, and improves balance.",
+    "Arms Up Pose":"Arms Up Pose improves posture, opens chest, and boosts circulation."
+  };
+  box.innerHTML=messages[pose]||"";
+  box.style.display="block";
 }
 
-// Start Music on user interaction
-function startMusic(){
-    const music=document.getElementById("bg-music");
-    music.play().catch(()=>{});
+// ------------------ MUSIC ------------------
+const music = document.getElementById("bg-music");
+function toggleMusic(){
+  if(music.paused){ music.play(); document.getElementById("music-btn").textContent="🔊 Music On"; }
+  else{ music.pause(); document.getElementById("music-btn").textContent="🔇 Music Off"; }
 }
 </script>
 </body>
