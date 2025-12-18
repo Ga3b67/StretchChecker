@@ -1,172 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Yoga Pose Checker</title>
-    <style>
-        body {
-            font-family: "Poppins", Arial, sans-serif;
-            background: linear-gradient(180deg, #fff7a1, #ffffff, #ff6b6b);
-            text-align: center;
-            padding: 25px;
-            color: #3c1f1f;
-        }
+<meta charset="UTF-8">
+<title>PoseSense – Smart Yoga Pose Checker</title>
 
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #b40000;
-            text-shadow: 2px 2px 5px #ffcbcb;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        .instructions, #benefits {
-            background: #ffffffd9;
-            padding: 20px;
-            border-radius: 16px;
-            width: 85%;
-            margin: 20px auto;
-            box-shadow: 0px 4px 10px rgba(255, 94, 94, 0.3);
-            border-left: 6px solid #ff2e2e;
-        }
+<style>
+:root {
+    --red: #d62828;
+    --yellow: #fcbf49;
+    --white: #ffffff;
+    --dark: #2b2b2b;
+}
 
-        #webcam-container {
-            margin-top: 25px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        #label-container div {
-            font-size: 1.2rem;
-            padding: 6px;
-            background: #ffe6e6;
-            width: 200px;
-            margin: 5px auto;
-            border-radius: 12px;
-            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-            color: #b40000;
-        }
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fff3b0, #ffffff, #ffd6d6);
+    color: var(--dark);
+    overflow-x: hidden;
+}
 
-        button {
-            padding: 12px 30px;
-            background: linear-gradient(45deg, #ff2e2e, #ffca2c);
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: 600;
-            box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.4);
-            transition: 0.25s ease-in-out;
-        }
+/* ---------- HERO ---------- */
+header {
+    padding: 80px 20px;
+    text-align: center;
+    animation: fadeIn 1.5s ease;
+}
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 6px 14px rgba(255, 0, 0, 0.6);
-        }
-    </style>
+header h1 {
+    font-size: 3.5rem;
+    color: var(--red);
+}
+
+header p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: auto;
+}
+
+/* ---------- BUTTON ---------- */
+button {
+    background: linear-gradient(45deg, var(--red), var(--yellow));
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: auto;
+    animation: fadeUp 1.2s ease;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
+    border-top: 8px solid var(--yellow);
+}
+
+/* ---------- WEBCAM ---------- */
+#webcam-container canvas {
+    border-radius: 20px;
+    border: 6px solid var(--red);
+    box-shadow: 0 12px 30px rgba(214,40,40,0.4);
+}
+
+/* ---------- LABELS ---------- */
+#label-container div {
+    background: #fff1f1;
+    color: var(--red);
+    padding: 10px;
+    margin: 8px auto;
+    width: 250px;
+    border-radius: 14px;
+    font-weight: 600;
+}
+
+/* ---------- BENEFITS ---------- */
+#benefits {
+    display: none;
+    background: linear-gradient(135deg, #fff8cc, #ffe6e6);
+    padding: 25px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    border-left: 8px solid var(--red);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
 </head>
 
 <body>
-    <h1>Yoga Pose Checker 🧘‍♀️</h1>
-    <p style="font-size:1.2rem;">A bright, fun, and interactive way to stay fit!</p>
 
-    <div class="instructions">
-        <h2 style="color:#b40000;">How to use:</h2>
-        <p>1. Click <strong>Start</strong> to turn on your webcam.</p>
-        <p>2. Stand back and make sure your upper body is visible.</p>
-        <p>3. Try one of these poses:</p>
-        <ul style="list-style:none; padding:0; font-size:1.1rem;">
-            <li>✨ <strong>Stretch Pose</strong></li>
-            <li>✨ <strong>Squat Pose</strong></li>
-            <li>✨ <strong>Arms Up Pose</strong></li>
-        </ul>
-        <p>4. The model will show your pose and display the benefits!</p>
+<header>
+    <h1>PoseSense 🧘‍♀️</h1>
+    <p>
+        A smart, interactive pose checker that uses AI to help people stay active,
+        improve posture, and exercise with confidence.
+    </p>
+    <br>
+    <button onclick="init()">Start Pose Detection</button>
+</header>
+
+<section>
+    <div class="card">
+        <h2>Why This Matters</h2>
+        <p>
+            Many people want to stretch or exercise but are unsure if they are doing
+            poses correctly. Incorrect posture can limit results and increase the risk
+            of discomfort or injury.
+        </p>
+        <p>
+            PoseSense solves this by using artificial intelligence to recognize body
+            positions in real time and provide instant feedback. This removes confusion
+            and helps users feel confident while staying active.
+        </p>
     </div>
 
-    <button onclick="init()">Start</button>
+    <div class="card">
+        <h2>Who Benefits?</h2>
+        <ul>
+            <li>✔ Beginners learning basic fitness and yoga poses</li>
+            <li>✔ Students who sit for long periods</li>
+            <li>✔ People exercising at home</li>
+            <li>✔ Anyone who wants a fun, interactive way to move</li>
+        </ul>
+    </div>
+</section>
+
+<section style="text-align:center;">
+    <h2>Live Pose Detection</h2>
+    <p>Try one of the following poses:</p>
+    <p><strong>Stretch Pose • Squat Pose • Arms Up Pose</strong></p>
 
     <div id="webcam-container"></div>
     <div id="label-container"></div>
+    <div id="benefits"></div>
+</section>
 
-    <div id="benefits" class="instructions" style="display:none;"></div>
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script>
+const URL = "./my_model/";
+let model, webcam, labelContainer, maxPredictions;
 
-    <script>
-        const URL = "./my_model/";
-        let model, webcam, labelContainer, maxPredictions;
+async function init() {
+    model = await tmImage.load(URL + "model.json", URL + "metadata.json");
+    maxPredictions = model.getTotalClasses();
 
-        async function init() {
-            const modelURL = URL + "model.json";
-            const metadataURL = URL + "metadata.json";
+    webcam = new tmImage.Webcam(320, 320, true);
+    await webcam.setup();
+    await webcam.play();
+    window.requestAnimationFrame(loop);
 
-            model = await tmImage.load(modelURL, metadataURL);
-            maxPredictions = model.getTotalClasses();
+    document.getElementById("webcam-container").appendChild(webcam.canvas);
+    labelContainer = document.getElementById("label-container");
 
-            const flip = true;
-            webcam = new tmImage.Webcam(300, 300, flip);
-            await webcam.setup();
-            await webcam.play();
-            window.requestAnimationFrame(loop);
+    for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
+}
 
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
-            labelContainer = document.getElementById("label-container");
+async function loop() {
+    webcam.update();
+    await predict();
+    window.requestAnimationFrame(loop);
+}
 
-            for (let i = 0; i < maxPredictions; i++) {
-                labelContainer.appendChild(document.createElement("div"));
-            }
-        }
+async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+    let top = { name: "", prob: 0 };
 
-        async function loop() {
-            webcam.update();
-            await predict();
-            window.requestAnimationFrame(loop);
-        }
+    for (let i = 0; i < maxPredictions; i++) {
+        const p = prediction[i];
+        labelContainer.childNodes[i].innerHTML =
+            `${p.className}: ${p.probability.toFixed(2)}`;
+        if (p.probability > top.prob) top = p;
+    }
 
-        async function predict() {
-            const prediction = await model.predict(webcam.canvas);
+    showBenefits(top.className, top.probability);
+}
 
-            let highest = { name: "", prob: 0 };
+function showBenefits(pose, prob) {
+    const box = document.getElementById("benefits");
+    if (prob < 0.75) {
+        box.style.display = "none";
+        return;
+    }
 
-            for (let i = 0; i < maxPredictions; i++) {
-                const p = prediction[i].probability;
-                const name = prediction[i].className;
+    let text = "";
+    if (pose === "Stretch Pose")
+        text = "Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.";
+    else if (pose === "Squat Pose")
+        text = "Squat Pose builds leg strength, improves balance, and activates core muscles.";
+    else if (pose === "Arms Up Pose")
+        text = "Arms Up Pose improves posture, opens the chest, and boosts circulation.";
 
-                labelContainer.childNodes[i].innerHTML =
-                    `${name}: ${p.toFixed(2)}`;
+    box.innerHTML = `<strong>${text}</strong>`;
+    box.style.display = "block";
+}
+</script>
 
-                if (p > highest.prob) highest = { name, prob: p };
-            }
-
-            showBenefits(highest.name, highest.prob);
-        }
-
-        function showBenefits(pose, prob) {
-            const box = document.getElementById("benefits");
-
-            if (prob < 0.75) {
-                box.style.display = "none";
-                return;
-            }
-
-            let text = "";
-
-            if (pose === "Stretch Pose") {
-                text = "🌼 Stretch Pose helps loosen muscles, reduce stiffness, and improve flexibility.";
-            }
-            else if (pose === "Squat Pose") {
-                text = "🔥 Squat Pose strengthens your legs, glutes, and core while boosting balance.";
-            }
-            else if (pose === "Arms Up Pose") {
-                text = "☀️ Arms Up Pose improves posture, opens the shoulders, and increases circulation.";
-            }
-
-            box.innerHTML = `<strong>${text}</strong>`;
-            box.style.display = "block";
-        }
-    </script>
 </body>
 </html>
