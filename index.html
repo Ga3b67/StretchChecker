@@ -22,7 +22,7 @@
     --dark: #1d1d1d;
 }
 
-/* GENERAL */
+/* ---------------- GENERAL ---------------- */
 * { box-sizing: border-box; }
 body { 
     margin: 0; 
@@ -34,12 +34,14 @@ body {
     min-height: 100vh;
 }
 
-/* BACKGROUND CIRCLES */
+/* ---------------- BACKGROUND CIRCLES ---------------- */
 .background-circle {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.15;
-    animation: float 25s linear infinite;
+    opacity: 0.2;
+    filter: blur(20px);
+    animation: float 20s linear infinite alternate;
+    mix-blend-mode: screen;
 }
 @keyframes float {
     0% { transform: translateY(0) translateX(0); }
@@ -47,7 +49,7 @@ body {
     100% { transform: translateY(0) translateX(0); }
 }
 
-/* HERO */
+/* ---------------- HERO ---------------- */
 header {
     min-height: 100vh;
     padding: 80px 20px;
@@ -58,21 +60,30 @@ header {
     position: relative;
     z-index: 2;
 }
+
 header h1 {
     font-size: 4rem;
     color: var(--dark-red);
     letter-spacing: 1px;
     transition: 0.3s ease;
 }
-header h1:hover { transform: scale(1.05); color: var(--orange); }
+header h1:hover {
+    transform: scale(1.05);
+    color: var(--orange);
+}
+
 header p {
     font-size: 1.4rem;
     max-width: 760px;
     margin: 20px auto;
     transition: 0.3s ease;
 }
-header p:hover { color: var(--red); transform: translateY(-3px); }
+header p:hover {
+    color: var(--red);
+    transform: translateY(-3px);
+}
 
+/* BUTTON */
 button {
     background: linear-gradient(135deg, var(--dark-red), var(--yellow));
     border: none;
@@ -85,48 +96,139 @@ button {
     box-shadow: 0 15px 40px rgba(0,0,0,0.35);
     transition: 0.35s ease;
 }
-button:hover { transform: translateY(-6px) scale(1.07); }
+button:hover {
+    transform: translateY(-6px) scale(1.07);
+}
 
-/* SECTIONS */
-section { padding: 80px 20px; max-width: 1200px; margin: auto; position: relative; z-index: 2; }
-.section-title { text-align: center; font-size: 2.6rem; color: var(--dark-red); margin-bottom: 40px; transition: 0.3s ease; }
-.section-title:hover { color: var(--orange); }
+/* ---------------- SECTIONS ---------------- */
+section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
 
-/* CARDS */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-.card { background: white; padding: 35px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden; transition: 0.4s ease; }
-.card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
+.section-title {
+    text-align: center;
+    font-size: 2.6rem;
+    color: var(--dark-red);
+    margin-bottom: 40px;
+    transition: 0.3s ease;
+}
+.section-title:hover {
+    color: var(--orange);
+}
 
-/* BENEFIT ITEMS */
-.benefit { font-size: 1.1rem; display: flex; align-items: center; gap: 14px; }
-.benefit span { background: linear-gradient(135deg, var(--dark-red), var(--yellow)); color: white; padding: 12px; border-radius: 50%; font-weight: 700; }
+/* ---------------- CARDS ---------------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
 
-/* WEBCAM */
-#webcam-container canvas { border-radius: 24px; border: 8px solid var(--dark-red); box-shadow: 0 25px 50px rgba(230,57,70,0.4); transition: 0.4s ease; }
-#webcam-container canvas:hover { transform: scale(1.03); }
+.card {
+    background: white;
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+}
 
-/* LABELS */
-#label-container div { background: #fff1f1; color: var(--dark-red); padding: 12px; margin: 10px auto; width: 260px; border-radius: 16px; font-weight: 600; transition: 0.3s ease; }
-#label-container div:hover { transform: translateY(-3px); color: var(--orange); }
+/* ---------------- BENEFIT ITEMS ---------------- */
+.benefit {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.benefit span {
+    background: linear-gradient(135deg, var(--dark-red), var(--yellow));
+    color: white;
+    padding: 12px;
+    border-radius: 50%;
+    font-weight: 700;
+}
 
-/* BENEFITS BOX */
-#benefits { display: none; margin-top: 30px; padding: 28px; background: linear-gradient(135deg, #fff8cc, #ffe6e6); border-radius: 22px; font-size: 1.2rem; border-left: 10px solid var(--dark-red); transition: 0.4s ease; animation: fadeUp 0.6s ease; }
+/* ---------------- WEBCAM ---------------- */
+#webcam-container canvas {
+    border-radius: 24px;
+    border: 8px solid var(--dark-red);
+    box-shadow: 0 25px 50px rgba(230,57,70,0.4);
+    transition: 0.4s ease;
+}
+#webcam-container canvas:hover {
+    transform: scale(1.03);
+}
 
-/* POSTURE TIPS */
-#pose-tips { margin-top: 20px; font-size: 1rem; color: var(--dark); background: #fffbe6; padding: 20px; border-radius: 16px; border-left: 8px solid var(--orange); }
+/* ---------------- LABELS ---------------- */
+#label-container div {
+    background: #fff1f1;
+    color: var(--dark-red);
+    padding: 12px;
+    margin: 10px auto;
+    width: 260px;
+    border-radius: 16px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+#label-container div:hover {
+    transform: translateY(-3px);
+    color: var(--orange);
+}
 
-/* ANIMATIONS */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+/* ---------------- BENEFITS BOX ---------------- */
+#benefits {
+    display: none;
+    margin-top: 30px;
+    padding: 28px;
+    background: linear-gradient(135deg, #fff8cc, #ffe6e6);
+    border-radius: 22px;
+    font-size: 1.2rem;
+    border-left: 10px solid var(--dark-red);
+    transition: 0.4s ease;
+    animation: fadeUp 0.6s ease;
+}
+
+/* ---------------- POSE TIPS ---------------- */
+#pose-tips {
+    margin-top: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff1f1, #fff8cc);
+    border-radius: 20px;
+    font-size: 1.1rem;
+    color: var(--dark);
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+    text-align: center;
+    padding: 25px 0;
+    color: var(--dark-red);
+    font-weight: 500;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
 
 <!-- BACKGROUND CIRCLES -->
-<div class="background-circle" style="width:200px; height:200px; top:10%; left:10%; background: var(--dark-red);"></div>
-<div class="background-circle" style="width:250px; height:250px; top:30%; left:70%; background: var(--red); animation-delay:3s;"></div>
-<div class="background-circle" style="width:180px; height:180px; top:50%; left:40%; background: var(--orange); animation-delay:6s;"></div>
-<div class="background-circle" style="width:220px; height:220px; top:70%; left:20%; background: var(--yellow); animation-delay:9s;"></div>
+<div class="background-circle" style="width:200px;height:200px;top:10%;left:10%;background:var(--dark-red);"></div>
+<div class="background-circle" style="width:250px;height:250px;top:30%;left:70%;background:var(--red);animation-delay:3s;"></div>
+<div class="background-circle" style="width:180px;height:180px;top:50%;left:40%;background:var(--orange);animation-delay:6s;"></div>
+<div class="background-circle" style="width:220px;height:220px;top:70%;left:20%;background:var(--yellow);animation-delay:9s;"></div>
 
 <header>
     <h1>PoseSense</h1>
@@ -160,8 +262,20 @@ section { padding: 80px 20px; max-width: 1200px; margin: auto; position: relativ
     <div id="webcam-container"></div>
     <div id="label-container"></div>
     <div id="benefits"></div>
-    <div id="pose-tips"></div>
+    <div id="pose-tips">
+        <strong>Pose Tips:</strong>
+        <ul>
+            <li><strong>Stretch Pose:</strong> Extend arms and legs fully, breathe deeply.</li>
+            <li><strong>Squat Pose:</strong> Keep knees aligned with toes, engage core.</li>
+            <li><strong>Arms Up Pose:</strong> Straighten back, open chest, maintain posture.</li>
+        </ul>
+    </div>
 </section>
+
+<footer>Created by Gabriel Martinez</footer>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bg-music" src="relaxing-yoga.mp3" autoplay loop></audio>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
@@ -198,10 +312,10 @@ async function loop(){
 
 async function predict(){
     const prediction = await model.predict(webcam.canvas);
-    let top={name:"",prob:0};
+    let top = {name:"", prob:0};
     for(let i=0;i<maxPredictions;i++){
-        const p = prediction[i];
-        labelContainer.childNodes[i].innerHTML = `${p.className}: ${p.probability.toFixed(2)}`;
+        const p=prediction[i];
+        labelContainer.childNodes[i].innerHTML=`${p.className}: ${p.probability.toFixed(2)}`;
         if(p.probability>top.prob) top=p;
     }
     showBenefits(top.name, top.prob);
@@ -209,31 +323,15 @@ async function predict(){
 
 function showBenefits(pose, prob){
     const box = document.getElementById("benefits");
-    const tipsBox = document.getElementById("pose-tips");
-    if(prob<0.8){
-        box.style.display="none";
-        tipsBox.style.display="none";
-        return;
-    }
-
-    const messages = {
+    if(prob<0.8){box.style.display="none"; return;}
+    const messages={
         "Stretch Pose":"Stretch Pose improves flexibility, reduces muscle stiffness, and helps prevent injury.",
-        "Squat Pose":"Squat Pose strengthens the legs, activates the core, and improves balance.",
-        "Arms Up Pose":"Arms Up Pose improves posture, opens the chest, and boosts circulation."
+        "Squat Pose":"Squat Pose strengthens legs, engages core, and improves balance.",
+        "Arms Up Pose":"Arms Up Pose improves posture, opens chest, and boosts circulation."
     };
-
-    const tips = {
-        "Stretch Pose":"Keep your back straight, inhale deeply while stretching arms, hold 10-15 seconds.",
-        "Squat Pose":"Feet shoulder-width apart, chest up, engage core, keep knees behind toes.",
-        "Arms Up Pose":"Raise arms fully, keep shoulders relaxed, breathe steadily, avoid arching back."
-    };
-
-    box.innerHTML = messages[pose] || "";
-    tipsBox.innerHTML = tips[pose] || "";
+    box.innerHTML = messages[pose]||"";
     box.style.display="block";
-    tipsBox.style.display="block";
 }
 </script>
-
 </body>
 </html>
