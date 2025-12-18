@@ -28,21 +28,21 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     position: relative;
-    background: var(--white);
+    background: linear-gradient(to bottom, #ffffff 0%, #fff8cc 100%);
 }
 
-/* Floating circles background */
+/* Background circles */
 .background-circle {
     position: absolute;
     border-radius: 50%;
     opacity: 0.25;
-    animation: floatUp linear infinite;
+    animation: floatSide linear infinite;
     z-index: -1;
 }
-@keyframes floatUp {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-50px) translateX(20px); }
-    100% { transform: translateY(-100px) translateX(0); }
+@keyframes floatSide {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(40px); }
+    100% { transform: translateX(0); }
 }
 
 /* Hero Section */
@@ -200,13 +200,6 @@ section {
 .pose-card:hover p {
     transform: scale(1.02);
 }
-
-/* Floating Animation */
-@keyframes floatUp {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-50px) translateX(20px); }
-    100% { transform: translateY(-100px) translateX(0); }
-}
 </style>
 </head>
 
@@ -350,7 +343,7 @@ for (let i = 0; i < 30; i++) {
     circle.style.background = colors[i % colors.length];
     circle.style.left = `${Math.random() * 100}%`;
     circle.style.top = `${Math.random() * 100}%`;
-    circle.style.animationDuration = `${10 + Math.random() * 20}s`;
+    circle.style.animationDuration = `${20 + Math.random() * 20}s`;
     circle.style.animationDelay = `${Math.random() * 5}s`;
     background.appendChild(circle);
 }
